@@ -12,14 +12,17 @@
   (is (= (dropN_41 [:a :b :c :d :e :f] 2) [:a :c :e])))
 
 (deftest split49Test
-  (is (= (split49 3 [1 2 3 4 5 6]) [[1 2 3] [4 5 6]]))
-  (is (= (split49 1 [:a :b :c :d]) [[:a] [:b :c :d]]))
-  (is (= (split49 2 [[1 2] [3 4] [5 6]]) [[[1 2] [3 4]] [[5 6]]])))
+  (is (= (split_49 3 [1 2 3 4 5 6]) [[1 2 3] [4 5 6]]))
+  (is (= (split_49 1 [:a :b :c :d]) [[:a] [:b :c :d]]))
+  (is (= (split_49 2 [[1 2] [3 4] [5 6]]) [[[1 2] [3 4]] [[5 6]]])))
 
 (deftest truthy83Test
-  (is (= false (truthy83 false false)))
-  (is (= true (truthy83 true false)))
-  (is (= false (truthy83 true true true))))
+  (is (= false (truthy_83 false false)))
+  (is (= true (truthy_83 true false)))
+  (is (= false (truthy_83 true true true))))
+
+(deftest repeater33Test
+  (is (= (repeater_33 [:a :b] 4) '(:a :a :a :a :b :b :b :b))))
 
 (comment
   (deftest splitType50Test
