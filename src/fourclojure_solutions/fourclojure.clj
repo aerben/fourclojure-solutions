@@ -1,16 +1,23 @@
 (ns fourclojure-solutions.fourclojure)
 
+(defn flat_28 "Flatten a sequence"
+  [toFlat]
+  (filter
+    (complement sequential?)
+    (tree-seq sequential? seq toFlat)))
+
+(defn repeater_33 "Solution 33. Repeat each element of a sequence n times and concatenate"
+  [seq n]
+  (mapcat identity
+          (map
+            #(repeat n %1)
+            seq)))
+
 (defn interposition_40 "Solution 40. Interpose alternative."
   [value list]
   (flatten
     (reduce
       (fn [lst val] [lst value val]) list)))
-
-(defn repeater_33 "Solution 33. Repeat each element of a sequence n times and concatenate" [seq n]
-  (mapcat identity
-          (map
-            #(repeat n %1)
-            seq)))
 
 (defn dropN_41 "Solution 41. Drop nth element."
   [lst n]
@@ -27,6 +34,8 @@
   [n lst]
   (list
     (take n lst) (drop n lst)))
+
+
 
 (defn truthy_83 "Solution 83. Variadic, takes booleans. Return if some are true and some are false."
   [& bools]

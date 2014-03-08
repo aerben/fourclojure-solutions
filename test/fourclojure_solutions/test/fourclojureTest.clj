@@ -2,6 +2,8 @@
   (:use [fourclojure-solutions.fourclojure])
   (:use [clojure.test]))
 
+(deftest flatten28Test
+  (is (= (flat_28 ["a" ["b"] "c"]) '("a" "b" "c"))))
 
 (deftest interposition40Test
   (is (= (interposition_40 0 [1 2 3]) [1 0 2 0 3]
