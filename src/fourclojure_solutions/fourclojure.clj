@@ -1,4 +1,4 @@
-(ns fourclojure-solutions.core)
+(ns fourclojure-solutions.fourclojure)
 
 (defn interposition_40 "Solution 40. Interpose alternative."
   [value list]
@@ -18,3 +18,10 @@
   [n lst]
   (list
     (take n lst) (drop n lst)))
+
+(defn truthy83 "Solution 83. Variadic, takes booleans. Return if some are true and some are false."
+  [& bools]
+  (not (nil?
+         (and
+           (seq (drop-while true? bools))
+           (seq (drop-while false? bools))))))
