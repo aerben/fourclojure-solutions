@@ -1,5 +1,5 @@
 (ns fourclojure-solutions.test.fourclojureTest
-  (:use [fourclojure-solutions.core])
+  (:use [fourclojure-solutions.fourclojure])
   (:use [clojure.test]))
 
 
