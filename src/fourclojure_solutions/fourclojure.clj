@@ -6,7 +6,7 @@
     (reduce
       (fn [lst val] [lst value val]) list)))
 
-(defn repeater_33 "Repeat each element of a sequence n times and concatenate" [seq n]
+(defn repeater_33 "Solution 33. Repeat each element of a sequence n times and concatenate" [seq n]
   (mapcat identity
           (map
             #(repeat n %1)
@@ -19,6 +19,9 @@
                (empty? curlist) accum
                (= 1 curN) (recur accum (rest curlist) n)
                :else (recur (conj accum (first curlist)) (rest curlist) (dec curN))))))
+
+(defn factorial_42 "Solution 42. Calculate the factorial." [n]
+  (reduce * (range 1 (inc n))))
 
 (defn split_49 "Solution 49. Split at n."
   [n lst]

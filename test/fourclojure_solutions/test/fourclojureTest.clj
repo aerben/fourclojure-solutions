@@ -11,6 +11,9 @@
   (is (= (dropN_41 [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8]))
   (is (= (dropN_41 [:a :b :c :d :e :f] 2) [:a :c :e])))
 
+(deftest factorial42Test
+  (is (= (factorial_42 8) 40320)))
+
 (deftest split49Test
   (is (= (split_49 3 [1 2 3 4 5 6]) [[1 2 3] [4 5 6]]))
   (is (= (split_49 1 [:a :b :c :d]) [[:a] [:b :c :d]]))
@@ -23,6 +26,8 @@
 
 (deftest repeater33Test
   (is (= (repeater_33 [:a :b] 4) '(:a :a :a :a :b :b :b :b))))
+
+
 
 (comment
   (deftest splitType50Test
