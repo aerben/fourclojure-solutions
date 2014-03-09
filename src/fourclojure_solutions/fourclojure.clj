@@ -62,6 +62,25 @@
            (complement nil?)
            (concat (disjn s1 s2) (disjn s2 s1))))))
 
+(defn sumOfSquare_120
+  "Count how many elements are smaller than the sum of their squared component digits."
+  [lst]
+  (letfn
+      [(to-digits
+         [i]
+         (map {\0 0 \1 1 \2 2 \3 3 \4 4 \5 5 \6 6 \7 7 \8 8 \9 9}
+              (str i)))]
+    (count
+      (filter
+        (fn [element]
+          (< element
+             (reduce
+               +
+               (map
+                 (fn [sq] (* sq sq))
+                 (to-digits element)))))
+        lst))))
+
 (defn infix_138
   "Solution 138. Parses arithmetic expression as infix, no operator precedence."
   [& args]
@@ -85,4 +104,3 @@
   [ltOp fst snd]
   (cond (ltOp fst snd) :lt (ltOp snd fst) :gt :else :eq)
   )
-
