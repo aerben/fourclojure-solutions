@@ -7,7 +7,6 @@
 
 (comment
   (deftest compress30Test
-
     (is (= (apply str (compress_30 "Leeeeeerrroyyy")) "Leroy"))
     (is (= (compress_30 [1 1 2 3 3 2 2 3]) '(1 2 3 2 3)))
     (is (= (compress_30 [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2])))))
@@ -45,6 +44,9 @@
 
 (deftest symmetricDiff88Test
   (is (= (symmetricDiff_88 #{[1 2] [2 3]} #{[2 3] [3 4]}) #{[1 2] [3 4]})))
+
+(deftest dotproduct143Test
+  (is (= 256 (dotproduct_143 [2 5 6] [100 10 1]))))
 
 (deftest comparison166Test
   (is (= :gt (comparison_166 < 5 1)))

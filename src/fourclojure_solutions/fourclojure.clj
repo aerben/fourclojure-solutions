@@ -99,6 +99,15 @@
         :else res
         ))))
 
+(defn dotproduct_143
+  "Solution 143. Dot product of two vectors."
+  [v1 v2]
+  (reduce
+    +
+    (map
+      #(* (first %)(second %))
+      (partition 2 (interleave v1 v2)))))
+
 (defn comparison_166
   "Solution 166. Takes a lower-than-operator and two operands, returns a keyword signalling the relationship."
   [ltOp fst snd]
