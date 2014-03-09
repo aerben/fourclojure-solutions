@@ -31,7 +31,6 @@
   (is (= (split_49 1 [:a :b :c :d]) [[:a] [:b :c :d]]))
   (is (= (split_49 2 [[1 2] [3 4] [5 6]]) [[[1 2] [3 4]] [[5 6]]])))
 
-
 (comment
   (deftest splitType50Test
     (is (= (set (splitType50 [1 :a 2 :b 3 :c])) #{[1 2 3] [:a :b :c]}))

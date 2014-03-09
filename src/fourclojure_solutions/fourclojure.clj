@@ -62,14 +62,27 @@
            (complement nil?)
            (concat (disjn s1 s2) (disjn s2 s1))))))
 
+(defn infix_138
+  "Solution 138. Parses arithmetic expression as infix, no operator precedence."
+  [& args]
+  (loop
+      [acc (first args)
+       lst (rest args)]
+    (let
+        [res (apply
+               (first lst)
+               [acc (second lst)])
+         restlst (drop 2 lst)
+         ]
+      (cond
+        (> (count restlst) 1)
+        (recur res restlst)
+        :else res
+        ))))
+
 (defn comparison_166
   "Solution 166. Takes a lower-than-operator and two operands, returns a keyword signalling the relationship."
   [ltOp fst snd]
   (cond (ltOp fst snd) :lt (ltOp snd fst) :gt :else :eq)
   )
-
-(letfn [(to-digits
-          [i] (map {\0 0 \1 1 \2 2 \3 3 \4 4 \5 5 \6 6 \7 7 \8 8 \9 9}
-                   (str i)))] (to-digits #(* %1 %2)))
-
 
