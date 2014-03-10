@@ -48,6 +48,18 @@
     (for [fun funs]
       (apply fun args))))
 
+(defn splitfilter_74
+  "Solution 74. Split a string around commas and filter only perfect squares."
+  [string]
+  (let [res
+        (filter
+          (fn [e] (let [val (Math/sqrt (Integer/parseInt e))]
+                    (= val (Math/floor val)))) (.split string ","))]
+    (cond (< 1 (count res))
+          (str (reduce (fn [val coll] (str val "," coll)) (butlast res)) "," (last res))
+          :else res
+          )))
+
 (defn truthy_83
   "Solution 83. Variadic, takes booleans. Return if some are true and some are false."
   [& bools]
@@ -112,7 +124,7 @@
   (reduce
     +
     (map
-      #(* (first %)(second %))
+      #(* (first %) (second %))
       (partition 2 (interleave v1 v2)))))
 
 (defn comparison_166
