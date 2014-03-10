@@ -41,6 +41,13 @@
   (list
     (take n lst) (drop n lst)))
 
+(defn juxta_59
+  "Solution 59. Juxtaposition."
+  [& funs]
+  (fn [& args]
+    (for [fun funs]
+      (apply fun args))))
+
 (defn truthy_83
   "Solution 83. Variadic, takes booleans. Return if some are true and some are false."
   [& bools]
