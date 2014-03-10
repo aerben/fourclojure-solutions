@@ -41,6 +41,15 @@
   (list
     (take n lst) (drop n lst)))
 
+(defn countocc_55
+  "Solution 55. Count occurences of entries in a sequence."
+  [lst]
+  (into '{}
+        (for [setelement (set lst)]
+          [setelement
+           (count
+             (filter #(= setelement %) lst))])))
+
 (defn juxta_59
   "Solution 59. Juxtaposition."
   [& funs]
@@ -130,5 +139,4 @@
 (defn comparison_166
   "Solution 166. Takes a lower-than-operator and two operands, returns a keyword signalling the relationship."
   [ltOp fst snd]
-  (cond (ltOp fst snd) :lt (ltOp snd fst) :gt :else :eq)
-  )
+  (cond (ltOp fst snd) :lt (ltOp snd fst) :gt :else :eq))
