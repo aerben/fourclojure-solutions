@@ -57,6 +57,14 @@
     (for [fun funs]
       (apply fun args))))
 
+(defn gcdEuclid_66
+  "Solution 66. Greatest common divisor"
+  [a, b]
+  (loop [a a b b]
+    (cond (= a b) a
+          (> a b) (recur (- a b) b)
+          :else (recur a (- b a)))))
+
 (defn splitfilter_74
   "Solution 74. Split a string around commas and filter only perfect squares."
   [string]
