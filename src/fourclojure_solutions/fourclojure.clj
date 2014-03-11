@@ -57,6 +57,13 @@
     (for [fun funs]
       (apply fun args))))
 
+(defn zip_61
+  "Solution 61. Take a vector of keys and a vector of values, give a map interleaved and partitioned by 2."
+  [keys values]
+  (into '{}
+        (for [entry (partition 2 (interleave keys values))]
+              [(first entry) (second entry)])))
+
 (defn gcdEuclid_66
   "Solution 66. Greatest common divisor"
   [a, b]
@@ -102,11 +109,11 @@
   "Solution 100. Least common multiple."
   [& args]
   (letfn [(gcd
-             [a, b]
-             (loop [a a b b]
-               (cond (= a b) a
-                     (> a b) (recur (- a b) b)
-                     :else (recur a (- b a)))))]
+            [a, b]
+            (loop [a a b b]
+              (cond (= a b) a
+                    (> a b) (recur (- a b) b)
+                    :else (recur a (- b a)))))]
     (reduce
       (fn
         [a b]
