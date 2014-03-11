@@ -98,6 +98,21 @@
            (complement nil?)
            (concat (disjn s1 s2) (disjn s2 s1))))))
 
+(defn lcm_100
+  "Solution 100. Least common multiple."
+  [& args]
+  (letfn [(gcd
+             [a, b]
+             (loop [a a b b]
+               (cond (= a b) a
+                     (> a b) (recur (- a b) b)
+                     :else (recur a (- b a)))))]
+    (reduce
+      (fn
+        [a b]
+        (/ (* a b) (gcd a b)))
+      args)))
+
 (defn sumOfSquare_120
   "Count how many elements are smaller than the sum of their squared component digits."
   [lst]
