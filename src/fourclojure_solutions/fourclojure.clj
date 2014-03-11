@@ -62,7 +62,7 @@
   [keys values]
   (into '{}
         (for [entry (partition 2 (interleave keys values))]
-              [(first entry) (second entry)])))
+          [(first entry) (second entry)])))
 
 (defn gcdEuclid_66
   "Solution 66. Greatest common divisor"
@@ -138,6 +138,14 @@
                  (fn [sq] (* sq sq))
                  (to-digits element)))))
         lst))))
+
+(defn pcards_128
+  [x]
+  (let [ranks {\2 0 \3 1 \4 2 \5 3 \6 4 \7 5 \8 6 \9 7 \T 8 \J 9 \Q 10 \K 11 \A 12}
+        suits {\D :diamond \C :club \H :heart \S :spade}
+        sq (seq x)]
+    {:suit (suits (first sq))
+     :rank (ranks (second sq))}))
 
 (defn infix_138
   "Solution 138. Parses arithmetic expression as infix, no operator precedence."
