@@ -114,6 +114,24 @@
            (complement nil?)
            (concat (disjn s1 s2) (disjn s2 s1))))))
 
+
+(defn bin-tree?_95
+  "Solution 95. Checks if a binary tree is passed"
+  [tree]
+  (cond
+    (not= 3 (count tree)) false
+    :else (letfn [(checkTree
+                    ;; "Checks if the given subtree has a value, a left child and a right child.". ;;
+                    [subtree]
+                    (cond (nil? subtree) true
+                          (not (coll? subtree)) false
+                          :else (bin-tree?_95 subtree)))]
+            (let [lc (second tree)
+                  rc (nth tree 2)]
+              (and
+                (checkTree lc)
+                (checkTree rc))))))
+
 (defn lcm_100
   "Solution 100. Least common multiple."
   [& args]
@@ -130,7 +148,7 @@
       args)))
 
 (defn sumOfSquare_120
-  "Count how many elements are smaller than the sum of their squared component digits."
+  "Solution 120. Count how many elements are smaller than the sum of their squared component digits."
   [lst]
   (letfn
       [(to-digits
@@ -183,7 +201,19 @@
       #(* (first %) (second %))
       (partition 2 (interleave v1 v2)))))
 
+(defn indexer_157
+  "Index sequence entries"
+  [seq]
+  (reverse
+    (loop [accum '() sq seq idx 0]
+      (cond (empty? sq) accum
+            :else (recur
+                    (conj accum (list (first sq) idx))
+                    (rest sq)
+                    (inc idx))))))
+
 (defn comparison_166
   "Solution 166. Takes a lower-than-operator and two operands, returns a keyword signalling the relationship."
   [ltOp fst snd]
-  (cond (ltOp fst snd) :lt (ltOp snd fst) :gt :else :eq))
+  (cond (ltOp fst snd) :lt (ltOp snd fst) :gt :else :eq)
+  )
