@@ -50,6 +50,15 @@
            (count
              (filter #(= setelement %) lst))])))
 
+(defn distinctn_56 [lst]
+  "Solution 56. Distinct."
+  (reverse
+    (loop [accum '() current lst blacklist '[]]
+      (let [fst (first current) rst (rest current)]
+        (cond (empty? current) accum
+              (some #{fst} blacklist) (recur accum rst blacklist)
+              :else (recur (conj accum fst) rst (conj blacklist fst)))))))
+
 (defn juxta_59
   "Solution 59. Juxtaposition."
   [& funs]
