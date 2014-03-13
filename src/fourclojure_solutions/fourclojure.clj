@@ -32,14 +32,43 @@
                :else (recur (conj accum (first curlist)) (rest curlist) (dec curN))))))
 
 (defn factorial_42
-  "Solution 42. Calculate the factorial." [n]
+  "Solution 42. Calculate the factorial."
+  [n]
   (reduce * (range 1 (inc n))))
+
+(defn rotate_44
+  "Solution 44. Rotate."
+  [n lst]
+  (letfn [(rotate [direction n]
+                  (cond (= :left direction)
+                        (concat (take-last n lst) (take (- (count lst) n) lst))
+                        :else
+                        (concat (drop n lst) (take n lst))))]
+    (if (> (Math/abs n) (count lst))
+      (cond
+        (neg? n) (rotate :left (- (Math/abs n) (count lst)))
+        :else (rotate :right (- n (count lst))))
+      (cond
+        (neg? n) (rotate :left (Math/abs n))
+        :else (rotate :right n)))
+    ))
+
 
 (defn split_49
   "Solution 49. Split at n."
   [n lst]
-  (list
-    (take n lst) (drop n lst)))
+  (list (take n lst) (drop n lst)))
+
+(defn part_54
+  "Solution 54. Partition."
+  [n lst]
+  (loop [cur lst acc '() streak '()]
+    (let [streakcnt (count streak)]
+      (cond (empty? cur) (cond
+                           (= n streakcnt) (concat acc [streak])
+                           :else acc)
+            (= n streakcnt) (recur (rest cur) (concat acc [streak]) [(first cur)])
+            :else (recur (rest cur) acc (concat streak [(first cur)]))))))
 
 (defn countocc_55
   "Solution 55. Count occurences of entries in a sequence."
@@ -50,8 +79,9 @@
            (count
              (filter #(= setelement %) lst))])))
 
-(defn distinctn_56 [lst]
+(defn distinctn_56
   "Solution 56. Distinct."
+  [lst]
   (reverse
     (loop [accum '() current lst blacklist '[]]
       (let [fst (first current) rst (rest current)]
@@ -96,20 +126,22 @@
 (defn truthy_83
   "Solution 83. Variadic, takes booleans. Return if some are true and some are false."
   [& bools]
-  (not (nil?
-         (and
-           (seq (drop-while true? bools))
-           (seq (drop-while false? bools))))))
+  (not
+    (nil?
+      (and
+        (seq (drop-while true? bools))
+        (seq (drop-while false? bools))))))
 
 (defn symmetricDiff_88
   "Solution 88. Symmetric difference of two sets."
   [s1 s2]
   (letfn
-      [(disjn [set1 set2]
-              (map
-                #(cond (contains? set1 %1) nil
-                       :else %1)
-                set2))]
+      [(disjn
+         [set1 set2]
+         (map
+           #(cond (contains? set1 %1) nil
+                  :else %1)
+           set2))]
     (set (filter
            (complement nil?)
            (concat (disjn s1 s2) (disjn s2 s1))))))
@@ -147,6 +179,19 @@
         (/ (* a b) (gcd a b)))
       args)))
 
+(defn take-while-n
+  "Solution 114. Take while predicate matched less than n times."
+  [n pred coll]
+  (loop [cnt n cur coll acc '()]
+    (let [fst (first cur)
+          rst (rest cur)
+          con (concat acc [(first cur)])]
+      (cond
+        (pred fst) (cond
+                     (= cnt 1) acc
+                     :else (recur (dec cnt) rst con))
+        :else (recur cnt rst con)))))
+
 (defn sumOfSquare_120
   "Solution 120. Count how many elements are smaller than the sum of their squared component digits."
   [lst]
@@ -167,6 +212,7 @@
         lst))))
 
 (defn pcards_128
+  "Solution 128. Convert string representations of playing cards to keyword maps"
   [x]
   (let [ranks {\2 0 \3 1 \4 2 \5 3 \6 4 \7 5 \8 6 \9 7 \T 8 \J 9 \Q 10 \K 11 \A 12}
         suits {\D :diamond \C :club \H :heart \S :spade}
@@ -184,13 +230,11 @@
         [res (apply
                (first lst)
                [acc (second lst)])
-         restlst (drop 2 lst)
-         ]
+         restlst (drop 2 lst)]
       (cond
         (> (count restlst) 1)
         (recur res restlst)
-        :else res
-        ))))
+        :else res))))
 
 (defn dotproduct_143
   "Solution 143. Dot product of two vectors."
@@ -200,6 +244,14 @@
     (map
       #(* (first %) (second %))
       (partition 2 (interleave v1 v2)))))
+
+(defn oscillerate [value & funs]
+  "Solution 144. Oscillating iteration."
+  (cons value
+        (lazy-seq
+          (apply oscillerate
+                 ((first funs) value)
+                 (concat (rest funs) [(first funs)])))))
 
 (defn indexer_157
   "Index sequence entries"
@@ -215,5 +267,4 @@
 (defn comparison_166
   "Solution 166. Takes a lower-than-operator and two operands, returns a keyword signalling the relationship."
   [ltOp fst snd]
-  (cond (ltOp fst snd) :lt (ltOp snd fst) :gt :else :eq)
-  )
+  (cond (ltOp fst snd) :lt (ltOp snd fst) :gt :else :eq))
