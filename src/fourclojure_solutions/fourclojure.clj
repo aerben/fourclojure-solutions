@@ -89,6 +89,22 @@
               (some #{fst} blacklist) (recur accum rst blacklist)
               :else (recur (conj accum fst) rst (conj blacklist fst)))))))
 
+(defn composition_58
+  "Solution 58. Composition."
+  [& funs]
+  (let [revfn (reverse funs)]
+    (fn actual
+      [& args]
+      (loop
+          [curres (apply (first revfn) args)
+           nextfn (next revfn)]
+        (if nextfn
+          (recur
+            ((first nextfn) curres)
+            (next nextfn))
+          ;else
+          curres)))))
+
 (defn juxta_59
   "Solution 59. Juxtaposition."
   [& funs]
