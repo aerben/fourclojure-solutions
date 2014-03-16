@@ -143,7 +143,9 @@
         (for [entry (partition 2 (interleave keys values))]
           [(first entry) (second entry)])))
 
-(defn group_by_63 [f cl]
+(defn group_by_63
+  "Solution 63. Group by."
+  [f cl]
   (apply merge-with concat (for [i cl]
                              {(f i) [i]})))
 
@@ -154,6 +156,11 @@
     (cond (= a b) a
           (> a b) (recur (- a b) b)
           :else (recur a (- b a)))))
+
+(defn wordsort_70
+  "Solution 70. Sort words."
+  [string]
+  (sort-by (fn [x](.toLowerCase x))  (re-seq #"\w+" string)))
 
 (defn splitfilter_74
   "Solution 74. Split a string around commas and filter only perfect squares."
