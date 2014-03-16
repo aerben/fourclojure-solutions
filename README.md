@@ -1,4 +1,4 @@
-fourclojuse-solutions
+fourclojure-solutions
 ========
 
 4clojure solutions
