@@ -134,6 +134,10 @@
         (for [entry (partition 2 (interleave keys values))]
           [(first entry) (second entry)])))
 
+(defn group_by_63 [f cl]
+  (apply merge-with concat (for [i cl]
+                             {(f i) [i]})))
+
 (defn gcdEuclid_66
   "Solution 66. Greatest common divisor"
   [a, b]
@@ -300,16 +304,4 @@
   [ltOp fst snd]
   (cond (ltOp fst snd) :lt (ltOp snd fst) :gt :else :eq))
 
-(defn ana [l]
-  (let [sets (map set l)]
-    (loop [cursets sets accum '()]
-      (cond (empty? cursets) accum
-            :else
-            (let [anagrams (filter #(= (first cursets) %) cursets)]
-              (recur
-                (rest cursets)
-                (conj accum
-                      (set
-                        (clojure.set/intersection cursets anagrams)))))))))
 
-(ana ["meat" "mat" "team" "mate" "eat"])
