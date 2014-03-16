@@ -25,13 +25,10 @@
 (defn repeater_33
   "Solution 33. Repeat each element of a sequence n times and concatenate"
   [seq n]
-  (mapcat identity
-          (map
-            #(repeat n %1)
-            seq)))
+  (mapcat identity (map #(repeat n %1) seq)))
 
 (defn interposition_40
-  "Solution 40. Interpose alternative."
+  "Solution 40. Interposition."
   [value list]
   (flatten
     (reduce
@@ -54,8 +51,8 @@
 (defn deinterleave_43
   "Solution 43: Reverse interleave"
   [col n]
-  (let [part (/ (count col) n)]
-    (partition part
+  (let [size (/ (count col) n)]
+    (partition size
                (flatten (map #(drop 1 %)
                              (sort-by first
                                       (map-indexed #(list (mod %1 n) %2) col)))))))
@@ -74,14 +71,28 @@
         :else (rotate :right (- n (count lst))))
       (cond
         (neg? n) (rotate :left (Math/abs n))
-        :else (rotate :right n)))
-    ))
+        :else (rotate :right n)))))
 
 
 (defn split_49
   "Solution 49. Split at n."
   [n lst]
   (list (take n lst) (drop n lst)))
+
+(defn longest-increasing-subseq_53
+  "Solution 53. Longest increasing subsequence above 1 element."
+  [coll]
+  (loop [maxstreak '()
+         streak [(first coll)]
+         remaining (rest coll)]
+    (let [fst (first remaining)
+          rst (rest remaining)
+          streaklen (count streak) maxlen (count maxstreak)]
+      (cond (empty? remaining) (cond (> streaklen maxlen) (if (> streaklen 1) streak [])
+                                     :else (if (> maxlen 1) maxstreak []))
+            (= (inc (last streak)) fst) (recur maxstreak (conj streak fst) rst)
+            (< streaklen maxlen) (recur maxstreak [fst] rst)
+            :else (recur streak [fst] rst)))))
 
 (defn part_54
   "Solution 54. Partition."
@@ -126,7 +137,6 @@
           (recur
             ((first nextfn) curres)
             (next nextfn))
-          ;else
           curres)))))
 
 (defn juxta_59
@@ -146,8 +156,7 @@
 (defn group_by_63
   "Solution 63. Group by."
   [f cl]
-  (apply merge-with concat (for [i cl]
-                             {(f i) [i]})))
+  (apply merge-with concat (for [i cl] {(f i) [i]})))
 
 (defn gcdEuclid_66
   "Solution 66. Greatest common divisor"
@@ -164,8 +173,7 @@
     (loop [accum [] i 2]
       (cond (= n (count accum)) accum
             (prime? i) (recur (conj accum i) (inc i))
-            :else (recur accum (inc i))
-            ))))
+            :else (recur accum (inc i))))))
 
 (defn merge-with_69
   "Solution 69. Merge with."
@@ -182,8 +190,7 @@
               (cond (empty? c2) c1
                     :else (recur
                             (merge-item c1 (first c2))
-                            (rest c2))))
-            )]
+                            (rest c2)))))]
     (reduce merge-maps maps)))
 
 (defn wordsort_70
@@ -198,42 +205,37 @@
         (filter
           (fn [e] (let [val (Math/sqrt (Integer/parseInt e))]
                     (= val (Math/floor val)))) (.split string ","))]
-    (cond (< 1 (count res))
-          (str (reduce (fn [val coll] (str val "," coll)) (butlast res)) "," (last res))
-          :else res
-          )))
+    (cond (< 1 (count res)) (str
+                              (reduce (fn [val coll] (str val "," coll)) (butlast res))
+                              ","
+                              (last res))
+          :else res)))
 
 (defn truthy_83
   "Solution 83. Variadic, takes booleans. Return if some are true and some are false."
   [& bools]
-  (not
-    (nil?
-      (and
-        (seq (drop-while true? bools))
-        (seq (drop-while false? bools))))))
+  (not (nil? (and
+               (seq (drop-while true? bools))
+               (seq (drop-while false? bools))))))
 
 (defn symmetricDiff_88
   "Solution 88. Symmetric difference of two sets."
   [s1 s2]
   (letfn
-      [(disjn
-         [set1 set2]
-         (map
-           #(cond (contains? set1 %1) nil
-                  :else %1)
-           set2))]
+      [(disjn [set1 set2]
+              (map
+                #(cond (contains? set1 %1) nil :else %1)
+                set2))]
     (set (filter
            (complement nil?)
            (concat (disjn s1 s2) (disjn s2 s1))))))
-
 
 (defn bin-tree?_95
   "Solution 95. Checks if a binary tree is passed"
   [tree]
   (cond
     (not= 3 (count tree)) false
-    :else (letfn [(checkTree
-                    ;; "Checks if the given subtree has a value, a left child and a right child.". ;;
+    :else (letfn [(check-tree
                     [subtree]
                     (cond (nil? subtree) true
                           (not (coll? subtree)) false
@@ -241,21 +243,19 @@
             (let [lc (second tree)
                   rc (nth tree 2)]
               (and
-                (checkTree lc)
-                (checkTree rc))))))
+                (check-tree lc)
+                (check-tree rc))))))
 
 (defn lcm_100
   "Solution 100. Least common multiple."
   [& args]
-  (letfn [(gcd
-            [a, b]
-            (loop [a a b b]
-              (cond (= a b) a
-                    (> a b) (recur (- a b) b)
-                    :else (recur a (- b a)))))]
+  (letfn [(gcd [a, b]
+               (loop [a a b b]
+                 (cond (= a b) a
+                       (> a b) (recur (- a b) b)
+                       :else (recur a (- b a)))))]
     (reduce
-      (fn
-        [a b]
+      (fn [a b]
         (/ (* a b) (gcd a b)))
       args)))
 
@@ -276,19 +276,15 @@
   "Solution 120. Count how many elements are smaller than the sum of their squared component digits."
   [lst]
   (letfn
-      [(to-digits
-         [i]
-         (map {\0 0 \1 1 \2 2 \3 3 \4 4 \5 5 \6 6 \7 7 \8 8 \9 9}
-              (str i)))]
+      [(to-digits [i] (map {\0 0 \1 1 \2 2 \3 3 \4 4 \5 5 \6 6 \7 7 \8 8 \9 9}
+                           (str i)))]
     (count
       (filter
-        (fn [element]
-          (< element
-             (reduce
-               +
-               (map
-                 (fn [sq] (* sq sq))
-                 (to-digits element)))))
+        (fn [e]
+          (< e
+             (reduce + (map
+                         (fn [sq] (* sq sq))
+                         (to-digits e)))))
         lst))))
 
 (defn pcards_128
@@ -325,11 +321,11 @@
       #(* (first %) (second %))
       (partition 2 (interleave v1 v2)))))
 
-(defn oscillerate [value & funs]
+(defn oscillerate_144 [value & funs]
   "Solution 144. Oscillating iteration."
   (cons value
         (lazy-seq
-          (apply oscillerate
+          (apply oscillerate_144
                  ((first funs) value)
                  (concat (rest funs) [(first funs)])))))
 
@@ -348,4 +344,3 @@
   "Solution 166. Takes a lower-than-operator and two operands, returns a keyword signalling the relationship."
   [ltOp fst snd]
   (cond (ltOp fst snd) :lt (ltOp snd fst) :gt :else :eq))
-
