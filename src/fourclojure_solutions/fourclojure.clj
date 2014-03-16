@@ -7,6 +7,21 @@
     (complement sequential?)
     (tree-seq sequential? seq toFlat)))
 
+(defn compress_30
+  "Solution 30. Compress a sequence."
+  [sq]
+  (reduce
+    (fn [cl val]
+      (cond (= val (peek cl)) cl
+            :else (conj cl val)))
+    []
+    sq))
+
+(defn pack_31
+  "Solution 31. Pack consecutive equal values into sublists."
+  [coll]
+  (partition-by identity coll))
+
 (defn repeater_33
   "Solution 33. Repeat each element of a sequence n times and concatenate"
   [seq n]
@@ -284,3 +299,17 @@
   "Solution 166. Takes a lower-than-operator and two operands, returns a keyword signalling the relationship."
   [ltOp fst snd]
   (cond (ltOp fst snd) :lt (ltOp snd fst) :gt :else :eq))
+
+(defn ana [l]
+  (let [sets (map set l)]
+    (loop [cursets sets accum '()]
+      (cond (empty? cursets) accum
+            :else
+            (let [anagrams (filter #(= (first cursets) %) cursets)]
+              (recur
+                (rest cursets)
+                (conj accum
+                      (set
+                        (clojure.set/intersection cursets anagrams)))))))))
+
+(ana ["meat" "mat" "team" "mate" "eat"])
