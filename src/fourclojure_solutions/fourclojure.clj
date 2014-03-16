@@ -51,6 +51,15 @@
   [n]
   (reduce * (range 1 (inc n))))
 
+(defn deinterleave_43
+  "Solution 43: Reverse interleave"
+  [col n]
+  (let [part (/ (count col) n)]
+    (partition part
+               (flatten (map #(drop 1 %)
+                             (sort-by first
+                                      (map-indexed #(list (mod %1 n) %2) col)))))))
+
 (defn rotate_44
   "Solution 44. Rotate."
   [n lst]
