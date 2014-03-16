@@ -157,6 +157,16 @@
           (> a b) (recur (- a b) b)
           :else (recur a (- b a)))))
 
+(defn kingprimes_67
+  "Solution 67. The king of primes selects the first n primes via regex."
+  [n]
+  (letfn [(prime? [x] (nil? (re-seq #"^1?$|^(11+?)\1+$" (apply str (repeat x "1")))))]
+    (loop [accum [] i 2]
+      (cond (= n (count accum)) accum
+            (prime? i) (recur (conj accum i) (inc i))
+            :else (recur accum (inc i))
+            ))))
+
 (defn wordsort_70
   "Solution 70. Sort words."
   [string]
