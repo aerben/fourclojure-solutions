@@ -246,6 +246,15 @@
                 (check-tree lc)
                 (check-tree rc))))))
 
+(defn equivalence-class-98
+  "Solution 98. Computate equivalence classes"
+  [f coll]
+  (->> coll
+       (group-by f)
+       (map #(into '#{} (second %)))
+       (into '#{})))
+
+
 (defn lcm_100
   "Solution 100. Least common multiple."
   [& args]
