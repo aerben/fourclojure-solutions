@@ -2,7 +2,7 @@
   (:use [clojure.set]))
 
 (def nth-21 #(->> %1 (drop %2) first))
-(def count-22 #(->> % (constantly 1)) (reduce +)))
+(def count-22 #(->> % (map (constantly 1)) (reduce +)))
 (def reverse-23 #(reduce conj '() %))
 (def sum-24 #(reduce + %))
 (def filter-odd-25 #(filter odd? %))
