@@ -19,7 +19,7 @@
 (deftest reverse-23-test
   (is (= (reverse-23 [1 2 3 4 5]) [5 4 3 2 1]))
   (is (= (reverse-23 (sorted-set 5 7 2 7)) '(7 5 2)))
-  (is (= (reverse-23 [[1 2][3 4][5 6]]) [[5 6][3 4][1 2]])))
+  (is (= (reverse-23 [[1 2] [3 4] [5 6]]) [[5 6] [3 4] [1 2]])))
 
 (deftest sum-24-test
   (is (= (sum-24 [1 2 3]) 6))
@@ -78,5 +78,28 @@
   (is (= (replicate-33 [4 5 6] 1) '(4 5 6)))
   (is (= (replicate-33 [[1 2] [3 4]] 2) '([1 2] [1 2] [3 4] [3 4])))
   (is (= (replicate-33 [44 33] 2) [44 44 33 33])))
+
+(deftest range-34-test
+  (is (= (range-34 1 4) '(1 2 3)))
+  (is (= (range-34 -2 2) '(-2 -1 0 1)))
+  (is (= (range-34 5 8) '(5 6 7))))
+
+(deftest local-35-test
+  (is (= local-35 (let [x 5] (+ 2 x))))
+  (is (= local-35 (let [x 3, y 10] (- y x))))
+  (is (= local-35 (let [x 21] (let [y 3] (/ x y))))))
+
+(deftest regex-37-test
+  (is (= regex-37 (apply str (re-seq #"[A-Z]+" "bA1B3Ce ")))))
+
+(deftest max-38-test
+  (is (= (max-38 1 8 3 4) 8))
+  (is (= (max-38 30 20) 30))
+  (is (= (max-38 45 67 11) 67)))
+
+(deftest interpose-40-test
+  (is (= (interpose-40 0 [1 2 3]) [1 0 2 0 3]))
+  (is (= (apply str (interpose-40 ", " ["one" "two" "three"])) "one, two, three"))
+  (is (= (interpose-40 :z [:a :b :c :d]) [:a :z :b :z :c :z :d])))
 
 (run-tests)
