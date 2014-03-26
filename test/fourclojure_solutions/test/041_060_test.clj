@@ -50,7 +50,7 @@
 
 (deftest partition-54-test
   (is (= (partition-54 3 (range 9)) '((0 1 2) (3 4 5) (6 7 8))))
-  (is (= (partition-54 2 (range 8)) '((0 1) (2 3) (4 5) (6 7))) )
+  (is (= (partition-54 2 (range 8)) '((0 1) (2 3) (4 5) (6 7))))
   (is (= (partition-54 3 (range 8)) '((0 1 2) (3 4 5)))))
 
 (deftest frequencies-55-test

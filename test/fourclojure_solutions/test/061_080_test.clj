@@ -109,17 +109,26 @@
            (map (partial trampoline-78 my-even?) (range 6)))
          [true false true false true false])))
 
-(comment (deftest triangle-minimum-path-79-test
-  (is (= 7 (triangle-minimum-path-79 '([1]
+(deftest triangle-shortest-path-79-test
+  (is
+    (= 7 (triangle-shortest-path-79 '([1]
+                                      [2 4]
+                                      [5 1 4]
+                                      [2 3 4 5]))))
+  (is
+    (= 20 (triangle-shortest-path-79 '([3]
                                        [2 4]
-                                       [5 1 4]
-                                       [2 3 4 5]))))
-  (is (= 20 (triangle-minimum-path-79 '([3]
-                                        [2 4]
-                                        [1 9 3]
-                                        [9 9 2 4]
-                                        [4 6 6 7 8]
-                                        [5 7 3 5 1 4]))))) )
+                                       [1 9 3]
+                                       [9 9 2 4]
+                                       [4 6 6 7 8]
+                                       [5 7 3 5 1 4])))))
+
+(deftest perfect-number-80-test
+  (is (= (perfect-number-80 6) true))
+  (is (= (perfect-number-80 7) false))
+  (is (= (perfect-number-80 496) true))
+  (is (= (perfect-number-80 500) false))
+  (is (= (perfect-number-80 8128) true)))
 
 
 (run-tests)

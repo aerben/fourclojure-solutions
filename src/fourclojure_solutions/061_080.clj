@@ -99,3 +99,24 @@
 (defn trampoline-78 [f v]
   (loop [fc (f v)]
     (if (ifn? fc) (recur (fc)) fc)))
+
+(defn triangle-shortest-path-79
+  ([△] (triangle-shortest-path-79 △ 0))
+  ([△ i]
+   (if (empty? △)
+     0
+     (let [node (nth (first △) i)
+           path #(triangle-shortest-path-79 (rest △) %)]
+       (min
+         (+ node (path i))
+         (+ node (path (inc i))))))))
+
+(defn perfect-number-80 [n]
+  (->>
+    (for [i (range 1 n)] (if (= 0 (mod n i)) i 0))
+    (reduce +)
+    (= n)))
+
+
+
+
