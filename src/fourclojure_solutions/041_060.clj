@@ -77,3 +77,11 @@
       (->> f reverse (reduce #(list (apply %2 %1)) args) first))))
 
 (defn juxtaposition-59 [& ff] #(for [f ff] (apply f %&)))
+
+(defn reductions-60
+  ([op initial [head & tail]]
+   (cons initial
+         (lazy-seq (when head
+                     (#(reductions-60 op % tail) (op initial head))))))
+  ([op [head & tail]]
+   (reductions-60 op head tail)))

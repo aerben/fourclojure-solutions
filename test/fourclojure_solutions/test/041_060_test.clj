@@ -75,4 +75,9 @@
   (is (= ["HELLO" 5] ((juxtaposition-59 #(.toUpperCase %) count) "hello")))
   (is (= [2 6 4] ((juxtaposition-59 :a :c :b) {:a 2, :b 4, :c 6, :d 8 :e 10}))))
 
+(deftest reductions-60-test
+  (is (= (take 5 (reductions-60 + (range))) [0 1 3 6 10]))
+  (is (= (reductions-60 conj [1] [2 3 4]) [[1] [1 2] [1 2 3] [1 2 3 4]]))
+  (is (= (last (reductions-60 * 2 [3 4 5])) (reduce * 2 [3 4 5]) 120)))
+
 (run-tests)
