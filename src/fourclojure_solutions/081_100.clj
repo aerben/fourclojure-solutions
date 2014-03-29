@@ -1,9 +1,11 @@
 (ns fourclojure-solutions.081_100
   (:use [clojure.set]))
 
-(def intersection-81 #(set (filter % %2)))
+(def intersection-81
+  #(set (filter % %2)))
 
-(defn word-chains-82 [sq]
+(defn word-chains-82
+  [sq]
   (letfn [(distance [s1 s2]
                     (cond
                       (empty? s1) (count s2)

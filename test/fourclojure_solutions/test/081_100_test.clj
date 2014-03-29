@@ -27,20 +27,14 @@
 
 (deftest transitive-84-test
   (let [divides #{[8 4] [9 3] [4 2] [27 9]}]
-    (is
-      (= (transitive-84 divides) #{[4 2] [8 4] [8 2] [9 3] [27 9] [27 3]})))
-  (let [more-legs
-        #{["cat" "man"] ["man" "snake"] ["spider" "cat"]}]
-    (is
-      (= (transitive-84 more-legs)
-         #{["cat" "man"] ["cat" "snake"] ["man" "snake"]
-           ["spider" "cat"] ["spider" "man"] ["spider" "snake"]})))
-  (let [progeny
-        #{["father" "son"] ["uncle" "cousin"] ["son" "grandson"]}]
-    (is
-      (= (transitive-84 progeny)
-         #{["father" "son"] ["father" "grandson"]
-           ["uncle" "cousin"] ["son" "grandson"]})))
-  )
+    (is (= (transitive-84 divides) #{[4 2] [8 4] [8 2] [9 3] [27 9] [27 3]})))
+  (let [more-legs #{["cat" "man"] ["man" "snake"] ["spider" "cat"]}]
+    (is (= (transitive-84 more-legs)
+           #{["cat" "man"] ["cat" "snake"] ["man" "snake"]
+             ["spider" "cat"] ["spider" "man"] ["spider" "snake"]})))
+  (let [progeny #{["father" "son"] ["uncle" "cousin"] ["son" "grandson"]}]
+    (is (= (transitive-84 progeny)
+           #{["father" "son"] ["father" "grandson"]
+             ["uncle" "cousin"] ["son" "grandson"]}))))
 
 (run-tests)
