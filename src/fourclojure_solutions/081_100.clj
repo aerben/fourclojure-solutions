@@ -26,3 +26,5 @@
         flatten
         (some true?)
         nil? false?))))
+
+(def half-true-83 #(not (nil? (and (seq (drop-while true? %&))(seq (drop-while false? %&))))))
