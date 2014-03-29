@@ -27,4 +27,14 @@
         (some true?)
         nil? false?))))
 
-(def half-true-83 #(not (nil? (and (seq (drop-while true? %&))(seq (drop-while false? %&))))))
+(def half-true-83
+  #(not (nil? (and (seq (drop-while true? %&)) (seq (drop-while false? %&))))))
+
+(defn transitive-84
+  [s]
+  (let [step #(into % (for [[x1 y1] %
+                            [x2 y2] %
+                            :when (= y1 x2)]
+                        [x1 y2]))
+        t (step s)]
+    (if (= (count t) (count s)) s (transitive-84 t))))
