@@ -40,3 +40,22 @@
                         [x1 y2]))
         t (step s)]
     (if (= (count t) (count s)) s (transitive-84 t))))
+
+(defn powerset-85
+  [s]
+  (reduce
+    (fn [x y]
+      (set (concat x (map #(set (concat #{y} %)) x))))
+    #{#{}}
+    s))
+
+(defn happy-number?-86 [n]
+  (let [to-digits #(map {\0 0 \1 1 \2 2 \3 3 \4 4 \5 5 \6 6 \7 7 \8 8 \9 9} (str %))]
+    (loop [accum [] x n]
+      (let [r (->> x
+                   to-digits
+                   (map #(* % %))
+                   (reduce +))]
+        (cond (= 1 r) true
+              (some #(= r %) accum) false
+              :else (recur (conj accum r) r))))))

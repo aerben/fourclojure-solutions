@@ -37,4 +37,18 @@
            #{["father" "son"] ["father" "grandson"]
              ["uncle" "cousin"] ["son" "grandson"]}))))
 
+(deftest powerset-85-test
+  (is(= (powerset-85 #{1 :a}) #{#{1 :a} #{:a} #{} #{1}}))
+  (is(= (powerset-85 #{}) #{#{}}))
+  (is(= (powerset-85 #{1 2 3})
+        #{#{} #{1} #{2} #{3} #{1 2} #{1 3} #{2 3} #{1 2 3}}))
+  (is(= (count (powerset-85 (into #{} (range 10)))) 1024)))
+
+(deftest happy-number?-86-test
+  (is(= (happy-number?-86 7) true))
+  (is(= (happy-number?-86 986543210) true))
+  (is(= (happy-number?-86 2) false))
+  (is(= (happy-number?-86 3) false))
+)
+
 (run-tests)
